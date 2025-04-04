@@ -17,8 +17,14 @@ public class CursoEstudante {
     @ManyToOne
     @JoinColumn(name = "id_curso", referencedColumnName = "id_curso")
     private Curso curso;
+
+    @Column(name = "id_curso")
+    private int cursoId;
     
     @ManyToOne
     @JoinColumn(name = "id_estudante", referencedColumnName = "id_estudante")
     private Estudante estudante;
+
+    @Column(name ="id_estudante")
+    private int estudanteId;
 }

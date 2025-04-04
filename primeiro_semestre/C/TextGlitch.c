@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <locale.h>
-#include <windows.h>
+#include <windows.h> // Incluído para usar Sleep
 
 void glitch_text(char *text, int glitch_amount) {
     int len = strlen(text);
@@ -28,13 +28,13 @@ void print_with_glitch(char *text, int glitch_amount, int delay) {
             glitch_text(temp, i + 1);
             printf("\r%s", temp);
             fflush(stdout);
-            Sleep(delay);
+            Sleep(delay); // Substituído usleep por Sleep
         }
 
-        temp[i] = text[i];
+        temp[i] = text[i]; // Substitua o caractere glitchado pela letra original
         printf("\r%s", temp);
         fflush(stdout);
-        Sleep(delay);
+        Sleep(delay); // Substituído usleep por Sleep
     }
 
     free(temp);
@@ -42,10 +42,10 @@ void print_with_glitch(char *text, int glitch_amount, int delay) {
 
 int main() {
 	setlocale(LC_ALL, "");
-    char text[] = "E a maconha?";
-    print_with_glitch(text, 5, 10);
-    system("cls");
-    printf("%s", text);
+    char text[] = "Me da minha folha";
+    print_with_glitch(text, 150, 10);
+    /* system("cls");
+    printf("%s", text); */
 
     return 0;
 }

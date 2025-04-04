@@ -21,8 +21,11 @@ public class Curso {
     private String nome;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
-    @JoinColumn(name = "id_professor", referencedColumnName = "id_professor")
+    @JoinColumn(name = "id_professor", referencedColumnName = "id_professor", insertable = false, updatable = false)
     private Professor professor;
+
+    @JoinColumn(name = "id_professor")
+    private int professorId;
 
     @OneToMany(mappedBy = "curso", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     private List<CursoEstudante> cursoEstudantes;
