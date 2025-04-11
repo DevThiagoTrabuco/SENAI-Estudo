@@ -1,13 +1,13 @@
 // Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyBHKUZ0Zk740pDCFDtWG73CYOttDErarck",
-    authDomain: "esp32-firebase-server.firebaseapp.com",
-    databaseURL: "https://esp32-firebase-server-default-rtdb.firebaseio.com",
-    projectId: "esp32-firebase-server",
-    storageBucket: "esp32-firebase-server.firebasestorage.app",
-    messagingSenderId: "339523323265",
-    appId: "1:339523323265:web:0a7e18b20ff4a798595480"
-};
+    apiKey: "AIzaSyBrnqehQ_h9MbIcYlDHK4BHbyvgztQZRqs",
+    authDomain: "iot-senai-esp32.firebaseapp.com",
+    databaseURL: "https://iot-senai-esp32-default-rtdb.firebaseio.com",
+    projectId: "iot-senai-esp32",
+    storageBucket: "iot-senai-esp32.firebasestorage.app",
+    messagingSenderId: "654364028381",
+    appId: "1:654364028381:web:9c9307162ba9852422da34"
+  };
 
 // Inicializa o Firebase
 firebase.initializeApp(firebaseConfig);
@@ -17,7 +17,7 @@ const ledStatusElement = document.getElementById("ledStatus");
 const toggleSwitch = document.getElementById("toggleSwitch");
 
 // Atualiza o status do LED em tempo real
-database.ref("led/state").on("value", (snapshot) => {
+database.ref("/statusLed/estado").on("value", (snapshot) => {
     const estado = snapshot.val();
     if (estado === 1) {
         ledStatusElement.textContent = "Ligado";
@@ -30,10 +30,10 @@ database.ref("led/state").on("value", (snapshot) => {
 
 // Alterna o estado do LED ao clicar no interruptor
 toggleSwitch.addEventListener("click", () => {
-    database.ref("led/state").once("value").then((snapshot) => {
+    database.ref("/statusLed/estado").once("value").then((snapshot) => {
         const estadoAtual = snapshot.val();
         const novoEstado = (estadoAtual === 1) ? 0 : 1;
-        database.ref("led").set({ state: novoEstado });
+        database.ref("/statusLed/").set({ estado: novoEstado });
     });
 });
 
