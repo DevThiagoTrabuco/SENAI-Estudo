@@ -1,51 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
-
-
 body {
-    
-    padding: 30px;
-    text-align: center;
-    align-items: center;
-    background: rgb(173,173,173);
-    background: linear-gradient(90deg, rgba(173,173,173,1) 0%, rgba(0,18,255,1) 100%);
-  }
-  .card {
-    background: #fff;
-    padding: 20px;
-    margin: 20px auto;
-    width: 300px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    display: flex;
-  }
-  .status-led {
-      display: none;
-  }
-  .vermelho { background-color: #e74c3c; }
-  .amarelo { background-color: #f1c40f; color: #000; }
-  .verde { background-color: #2ecc71; }
+  padding: 30px;
+  text-align: center;
+  align-items: center;
+  background: rgb(173,173,173);
+  background: linear-gradient(90deg, rgba(173,173,173,1) 0%, rgba(0,18,255,1) 100%);
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+}
+
+.status-led {
+    display: none;
+}
 
 .botao {
-    display: flex;
-    left: 50%;
-    transform: translate(-50%, 0%);
-  }
+  display: flex;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
 .icones{
   color: #3498db;
   font-size: 40px;
   padding-bottom: 10px;
 }
+
 h1{
-    font-family: "Jersey 15", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
+
 p{
-    font-family: "Jersey 15", sans-serif;
-    font-weight: 400;
-    font-size: 30px;
-    font-style: normal;
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  font-style: normal;
 }
 
 #chibi{
