@@ -1,0 +1,54 @@
+{
+    "version": 1,
+    "author": "Uri Shaked",
+    "editor": "wokwi",
+    "parts": [
+      {
+        "type": "wokwi-esp32-devkit-v1",
+        "id": "esp",
+        "top": 100.7,
+        "left": -158.6,
+        "attrs": { "fastTLS": "1" }
+      },
+      {
+        "type": "board-ili9341-cap-touch",
+        "id": "lcd1",
+        "top": -161.01,
+        "left": 219.64,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-led",
+        "id": "led1",
+        "top": 379.48,
+        "left": 47.75,
+        "attrs": { "color": "green" }
+      },
+      {
+        "type": "wokwi-led",
+        "id": "led2",
+        "top": 376.68,
+        "left": -9.97,
+        "attrs": { "color": "red" }
+      }
+    ],
+    "connections": [
+      [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+      [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+      [ "led2:C", "esp:GND.1", "black", [ "v11.47", "h-20.81", "v-194.67" ] ],
+      [ "led1:C", "esp:GND.1", "black", [ "v18.14", "h-97.48", "v-201.33" ] ],
+      [ "led2:A", "esp:D13", "red", [ "v33.81", "h-192.07", "v-229.53" ] ],
+      [ "led1:A", "esp:D5", "cyan", [ "v32.64", "h-45.24", "v-262.31" ] ],
+      [ "esp:VIN", "lcd1:VCC", "red", [ "h-10.61", "v65.63", "h284.28" ] ],
+      [ "esp:GND.1", "lcd1:GND", "black", [ "h0" ] ],
+      [ "esp:D15", "lcd1:CS", "magenta", [ "h0" ] ],
+      [ "esp:D4", "lcd1:RST", "purple", [ "h0" ] ],
+      [ "esp:D2", "lcd1:D/C", "#8f4814", [ "h0" ] ],
+      [ "esp:D23", "lcd1:MOSI", "green", [ "h177.97", "v47.73", "h198.89" ] ],
+      [ "esp:D18", "lcd1:SCK", "gray", [ "h0" ] ],
+      [ "lcd1:MISO", "esp:D19", "gold", [ "v0" ] ],
+      [ "lcd1:SCL", "esp:D22", "black", [ "v0" ] ],
+      [ "lcd1:SDA", "esp:D21", "cyan", [ "v0" ] ]
+    ],
+    "dependencies": {}
+  }

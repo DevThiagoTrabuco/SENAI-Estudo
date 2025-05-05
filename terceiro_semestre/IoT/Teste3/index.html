@@ -9,7 +9,17 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 </head>
 <body>
-    <h1>Histórico de acesso</h1>
+    <h1>Cadastro</h1>
+    <div class="card">
+        <form id="cadastro-form">
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+    <h2>Histórico de acesso</h2>
     <div class="card">
         <table>
             <thead>
