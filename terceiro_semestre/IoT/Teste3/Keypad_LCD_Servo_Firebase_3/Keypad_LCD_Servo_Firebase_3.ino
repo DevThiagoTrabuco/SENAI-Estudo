@@ -7,6 +7,7 @@
 #include <SPI.h>       // Biblioteca para comunicação SPI
 #include <Wire.h>      // Biblioteca para comunicação I2C
 #include <Adafruit_FT6206.h> // Biblioteca para o controlador de touchscreen FT6206
+#include <Adafruit_ILI9341.h>
 
 Adafruit_FT6206 ctp = Adafruit_FT6206(); // Inicializa o controlador de touchscreen
 
@@ -35,7 +36,8 @@ FirebaseConfig config;
 #define WHITE 0xFFFF
 #define GRAY 0x31A6
 
-TFT_eSPI tft = TFT_eSPI(); // Inicializa o display TFT
+//TFT_eSPI tft = TFT_eSPI(); // Inicializa o display TFT
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
 // Posições e teclas do teclado virtual
 int vPositions[4] = {127, 180, 233, 283};
@@ -58,13 +60,10 @@ void setup() {
   Serial.begin(115200);       // Inicializa a comunicação serial
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD, 6); // Conecta ao WiFi
   tft.begin();                // Inicializa o display TFT
-
   config.api_key = API_KEY;
   config.database_url = DATABASE_URL;
   auth.user.email = USER_EMAIL;
   auth.user.password = USER_PASSWORD;
-  Firebase.begin(&config, &auth);
-  Firebase.reconnectWiFi(true);
 
   // Inicializa o touchscreen
   if (!ctp.begin(40)) {
@@ -84,6 +83,9 @@ void setup() {
   desenhaButtons(); // Desenha os botões na tela
   desenhaBox();     // Desenha o layout da tela
   mostraEntradas(); // Mostra os campos de login e senha
+
+  Firebase.begin(&config, &auth);
+  Firebase.reconnectWiFi(true);
 }
 
 void loop() {
@@ -93,6 +95,8 @@ void loop() {
     p.y = map(p.y, 0, 320, 320, 0);
     selectedButton(p.x, p.y); // Identifica o botão pressionado
   }
+
+  delay(200);
 }
 
 // Desenha o layout da tela
@@ -226,19 +230,23 @@ void verificaUsuario() {
     FirebaseJson &json = fbdo.jsonObject();
     FirebaseJsonData jsonData;
 
+    // Percorre todos os usuários
+    size_t len = json.iteratorBegin();
     bool usuarioEncontrado = false;
-    String senhaFirebase;
+    String senhaFirebase = "";
 
-    // Itera sobre os usuários no JSON retornado
-    json.iteratorBegin();
-    while (json.iteratorGetNext(jsonData)) {
-      String key = jsonData.key;
-      String value = jsonData.value;
+    for (size_t i = 0; i < len; i++) {
+      String key, value;
+      int type;
+      json.iteratorGet(i, type, key, value);
 
-      // Verifica se o nome de usuário corresponde
-      if (key == "username" && value == valorLogin) {
+      // Verifica se o nome do usuário bate
+      if (key == valorLogin) {
+        FirebaseJson userJson;
+        userJson.setJsonData(value);
+        userJson.get(jsonData, "password");  // Busca a senha associada
+        senhaFirebase = jsonData.stringValue;
         usuarioEncontrado = true;
-        json.get(senhaFirebase, "/password"); // Obtém a senha associada
         break;
       }
     }
@@ -277,20 +285,14 @@ void verificaUsuario() {
   limpaTela();
 }
 
+
 void adicionaEntrada() {
-  if (op == 1) {
-    // Alterna para o campo de senha
-    op = 2;
+  if (valorLogin != "" & op == 1) {
+    op++;
+    return;
   } else if (op == 2) {
-    // Verifica se ambos os campos estão preenchidos
-    if (valorLogin != "" && valorSenha != "") {
-      verificaUsuario(); // Chama a função para verificar o usuário
-    } else {
-      tft.setCursor(10, 100);
-      tft.setTextColor(RED);
-      tft.println("Preencha todos os campos!");
-      delay(2000);
-      limpaTela();
-    }
+    verificaUsuario();
+    limpaTela();
+    return;
   }
 }

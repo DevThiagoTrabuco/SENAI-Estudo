@@ -52,11 +52,11 @@ cadastroForm.addEventListener("submit", (event) => {
     }
 
     const usuario = {
-        usuario: username,
-        senha: password
+        password: password
     };
 
-    firebase.database().ref("/login/usuarios").push(usuario, (error) => {
+    // Salva diretamente com o nome do usuário como chave
+    firebase.database().ref("/login/usuarios/" + username).set(usuario, (error) => {
         if (error) {
             alert("Erro ao salvar os dados de cadastro.");
         } else {
