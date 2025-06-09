@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agência Idéia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/pg.css">
+  </head>
+  <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-ligth">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">
+                    <img src="images/logo.png" alt="logo" class="logo">
+                </a>
+                <button 
+                class="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Quem somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Portifolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contato</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="sectionCarrosel">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="images/banner/img1.png" class="d-block w-100 imgBanner" alt="banner1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/banner/img2.png" class="d-block w-100 imgBanner" alt="banner2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/banner/img3.png" class="d-block w-100 imgBanner" alt="banner3">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+        <section id="blocos">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="main-title">Nossos Serviços</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 text-center align-middle destaque-texto">
+                        <i class="fa-solid fa-envelope-open icones"></i><br>
+                        EMAIL CORPORATIVO 
+                        <p class="destaque align-middle text-center">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio animi illo fugiat vel laborum beatae id minima quisquam natus corrupti perferendis perspiciatis aspernatur quo eos expedita, est culpa error dignissimos?
+                        </p>
+                    </div>
+                    <div class="col-sm-4 text-center align-middle destaque-texto">
+                        <i class="fa-solid fa-at icones"></i><br>
+                        REDES SOCIAIS
+                        <p class="destaque align-middle text-center">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio animi illo fugiat vel laborum beatae id minima quisquam natus corrupti perferendis perspiciatis aspernatur quo eos expedita, est culpa error dignissimos?
+                        </p>
+                    </div>
+                    <div class="col-sm-4 text-center align-middle destaque-texto">
+                        <i class="fa-solid fa-chalkboard icones"></i> <br>
+                        HOSPEDAGEM
+                        <p class="destaque align-middle text-center">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio animi illo fugiat vel laborum beatae id minima quisquam natus corrupti perferendis perspiciatis aspernatur quo eos expedita, est culpa error dignissimos?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contato">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="main-title">Contato</h3>
+                    </div>
+                </div>
+
+                <div class="container-fluid col-md-6">
+                    <form action="https://formsubmit.co/conta.qualqu3r@gmail.com" method="POST">
+                        <div class="col-md-12">
+                            <label for="inputEmail" class="form-label">
+                                E-mail:
+                            </label>
+                            <input type="email" name="email" id="inputEmail" class="form-control" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputCep" class="form-label">
+                                CEP:
+                            </label>
+                            <input type="text" name="cep" id="cep" class="form-control" onblur="pesquisacep(this.value)" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputRua" class="form-label">
+                                Rua:
+                            </label>
+                            <input type="text" name="rua" id="rua" class="form-control" required disabled>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputBairro" class="form-label">
+                                Bairro:
+                            </label>
+                            <input type="text" name="bairro" id="bairro" class="form-control" required disabled>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputFaleConosco" class="form-label">
+                                Fale conosco
+                            </label>
+                            <textarea name="faleconosco" class="form-control" rows="7" required></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-warning bt-enviar">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container-fluid">
+            <div class="row align-self-center">
+                <div class="col-sm-4 text-center align-self-center">
+                    <img src="images/logo.png" alt="" class="logo_footer">
+                </div>
+                <div class="col-sm-4 text-center align-self-center">
+                    Rua Jeguelson
+                    CEP: 44000000
+                    Pau da Égua, Bahia
+                </div>
+                <div class="col-sm-4 text-center align-self-center">
+                    <form action="" class="row g-2">
+                        <div class="col-auto">
+                            <input type="email" name="email" id="" class="form-control" placeholder="Informe o seu email">
+                        </div>
+                        <div class="col-auto"><button type="submit" class="btn btn-primary">Enviar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/cep.js"></script>
+    <script language="javascript">
+        $(document).ready(function(){
+            $('#cep').mask('00000-000');
+        })
+    </script>
+  </body>
+</html>

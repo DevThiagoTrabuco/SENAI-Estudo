@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Yatra+One&display=swap');
+
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Yatra One', sans-serif;
+    box-sizing: border-box;
+}
+
+#menu{
+    background-color: #dfecf4;
+}
+
+.nav{
+    margin: 10px;
+}
+
+.nav ul{
+    list-style: none;
+}
+
+.nav ul li{
+    display: inline;
+    padding: 25px;
+}
+
+.nav ul li a{
+    text-decoration: none;
+    color: #000;
+}
+
+.nav ul li a:hover{
+    border-bottom: 3px solid #29417c;
+}
+
+.grid0{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    align-items: center;
+    justify-items: center;
+}
