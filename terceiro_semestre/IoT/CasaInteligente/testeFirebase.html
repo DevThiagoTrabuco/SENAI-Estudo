@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Inteligente - Controle IoT</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Controle IoT - Casa Inteligente</h1>
+
+        <div class="status">
+            <strong>Status da Luz:</strong> <span id="status-luz">---</span><br>
+            <strong>Status do LCD:</strong> <span id="status-lcd">---</span><br>
+            <strong>Modo:</strong> <span id="status-modo">---</span>
+        </div>
+
+        <div class="button-group">
+            <button onclick="enviarComando('comando_ligar_lcd')">Ligar Tela</button>
+            <button onclick="enviarComando('comando_desligar_lcd')">Desligar Tela</button>
+            <button onclick="enviarComando('comando_ligar_luz')">Ligar Luz</button>
+            <button onclick="enviarComando('comando_desligar_luz')">Desligar Luz</button>
+            <button onclick="ligarTudo()">Ligar Tudo</button>
+            <button onclick="desligarTudo()">Desligar Tudo</button>
+            <button onclick="alternarModo()">Alternar Modo</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
