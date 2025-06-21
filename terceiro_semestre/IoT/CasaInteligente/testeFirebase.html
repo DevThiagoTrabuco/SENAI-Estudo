@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Inteligente - Controle IoT</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Inteligente - Controle IoT</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Controle IoT - Casa Inteligente</h1>
+  <div class="container">
+    <h1>Controle IoT - Casa Inteligente</h1>
 
-        <div class="status">
-            <strong>Status da Luz:</strong> <span id="status-luz">---</span><br>
-            <strong>Status do LCD:</strong> <span id="status-lcd">---</span><br>
-            <strong>Modo:</strong> <span id="status-modo">---</span>
-        </div>
-
-        <div class="button-group">
-            <button onclick="enviarComando('comando_ligar_lcd')">Ligar Tela</button>
-            <button onclick="enviarComando('comando_desligar_lcd')">Desligar Tela</button>
-            <button onclick="enviarComando('comando_ligar_luz')">Ligar Luz</button>
-            <button onclick="enviarComando('comando_desligar_luz')">Desligar Luz</button>
-            <button onclick="ligarTudo()">Ligar Tudo</button>
-            <button onclick="desligarTudo()">Desligar Tudo</button>
-            <button onclick="alternarModo()">Alternar Modo</button>
-        </div>
+    <div class="status">
+      <strong>Status da LED 1:</strong> <span id="status-led1">---</span><br>
+      <strong>Status do LCD:</strong> <span id="status-lcd">---</span><br>
+      <strong>Status do LED 2:</strong> <span id="status-led2">---</span><br>
+      <strong>Modo:</strong> <span id="status-modo">---</span>
     </div>
 
-    <script src="script.js"></script>
+    <div class="button-group">
+      <button onclick="enviarComando('comando_ligar_lcd')">Ligar Tela</button>
+      <button onclick="enviarComando('comando_desligar_lcd')">Desligar Tela</button>
+
+      <button onclick="enviarComando('comando_ligar_led1')">Ligar LED 1</button>
+      <button onclick="enviarComando('comando_desligar_led1')">Desligar LED 1</button>
+
+      <button onclick="enviarComando('comando_ligar_led2')">Ligar LED 2</button>
+      <button onclick="enviarComando('comando_desligar_led2')">Desligar LED 2</button>
+
+      <button onclick="ligarTudo()">Ligar Tudo</button>
+      <button onclick="desligarTudo()">Desligar Tudo</button>
+
+      <button onclick="alternarModo()">Alternar Modo</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

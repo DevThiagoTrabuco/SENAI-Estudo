@@ -1,57 +1,71 @@
-// Your web app's Firebase configuration
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBrnqehQ_h9MbIcYlDHK4BHbyvgztQZRqs",
   authDomain: "iot-senai-esp32.firebaseapp.com",
   databaseURL: "https://iot-senai-esp32-default-rtdb.firebaseio.com",
   projectId: "iot-senai-esp32",
-  storageBucket: "iot-senai-esp32.firebasestorage.app",
+  storageBucket: "iot-senai-esp32.appspot.com",
   messagingSenderId: "654364028381",
   appId: "1:654364028381:web:9c9307162ba9852422da34"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
+// Inicialização do Firebase
+firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
+
 const dispositivo = "ESP32-01";
 const caminho = `testeCasa/${dispositivo}`;
 
+// Função para enviar comandos
 function enviarComando(comando) {
   database.ref(`${caminho}/${comando}`).set(true);
 }
 
+// Botões compostos
 function ligarTudo() {
   enviarComando("comando_ligar_lcd");
-  enviarComando("comando_ligar_luz");
+  enviarComando("comando_ligar_led1");
+  enviarComando("comando_ligar_led2");
 }
 
 function desligarTudo() {
   enviarComando("comando_desligar_lcd");
-  enviarComando("comando_desligar_luz");
+  enviarComando("comando_desligar_led1");
+  enviarComando("comando_desligar_led2");
 }
 
+// Alternar modo automático/manual
 function alternarModo() {
-  database.ref(`${caminho}/modo`).once("value", (snapshot) => {
+  const refModo = database.ref(`${caminho}/modo`);
+  refModo.once("value").then(snapshot => {
     const modoAtual = snapshot.val();
     const novoModo = modoAtual === "auto" ? "manual" : "auto";
-    database.ref(`${caminho}/modo`).set(novoModo);
+    refModo.set(novoModo);
   });
 }
 
-// Atualiza status em tempo real
+// Atualização de status em tempo real
 function atualizarStatus() {
-  database.ref(`${caminho}/estado_luz`).on("value", (snapshot) => {
-    document.getElementById("status-luz").innerText = snapshot.val() ? "Ligada" : "Desligada";
+  // LED 1
+  database.ref(`${caminho}/led1`).on("value", snapshot => {
+    document.getElementById("status-led1").innerText = snapshot.val() ? "Ligada" : "Desligada";
   });
 
-  database.ref(`${caminho}/estado_lcd`).on("value", (snapshot) => {
+  // LCD
+  database.ref(`${caminho}/lcd`).on("value", snapshot => {
     document.getElementById("status-lcd").innerText = snapshot.val() ? "Ligado" : "Desligado";
   });
 
-  database.ref(`${caminho}/modo`).on("value", (snapshot) => {
+  // LED 2
+  database.ref(`${caminho}/led2`).on("value", snapshot => {
+    document.getElementById("status-led2").innerText = snapshot.val() ? "Ligado" : "Desligado";
+  });
+
+  // Modo
+  database.ref(`${caminho}/modo`).on("value", snapshot => {
     document.getElementById("status-modo").innerText = snapshot.val();
   });
 }
 
-// Inicia escuta de status ao carregar a página
+// Inicia escuta ao carregar a página
 window.onload = atualizarStatus;

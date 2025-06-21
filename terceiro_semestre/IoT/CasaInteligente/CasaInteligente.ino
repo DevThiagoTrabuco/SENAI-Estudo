@@ -27,11 +27,13 @@ const String dispositivo = "ESP32-01";
 const int pinoLed = 23;
 const int sensorPin = 16;
 const int releLCD = 22;
+const int ledSecundarioPin = 21;
 
 bool controleManualLED = false;
-bool lcdLigado = true;
+bool lcdLigado = false;
 
 void connectWiFi() {
+  WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Conectando ao Wi-Fi");
   while (WiFi.status() != WL_CONNECTED) {
@@ -87,13 +89,18 @@ void setup() {
   pinMode(pinoLed, OUTPUT);
   pinMode(sensorPin, INPUT);
   pinMode(releLCD, OUTPUT);
+  pinMode(ledSecundarioPin, OUTPUT);
 
   connectWiFi();
   initFirebase();
 
-  digitalWrite(releLCD, LOW);
-  delay(1000);
+  // Verifica se o relé está ativando o VCC da tela
+  digitalWrite(releLCD, LOW);  // Liga LCD (conecta VCC)
+  delay(500);
   lcd.begin(16, 2);
+  lcd.print("Iniciando...");
+  lcdLigado = true;
+  enviarEstado("lcd", true);
 }
 
 void loop() {
@@ -104,30 +111,36 @@ void loop() {
   if (!controleManualLED) {
     if (movimento == HIGH) {
       digitalWrite(pinoLed, HIGH);
-      lcd.clear();
-      lcd.print("Movimento!");
-      enviarEstado("luz", true);
+      if (lcdLigado) {
+        lcd.clear();
+        lcd.print("Movimento!");
+      }
+      enviarEstado("led1", true);
       Serial.println("Movimento detectado!");
     } else {
       digitalWrite(pinoLed, LOW);
-      lcd.clear();
-      lcd.print("Sem movimento");
-      enviarEstado("luz", false);
+      if (lcdLigado) {
+        lcd.clear();
+        lcd.print("Sem movimento");
+      }
+      enviarEstado("led1", false);
       Serial.println("Nada detectado");
     }
   } else {
-    lcd.clear();
-    lcd.print("Sensor desligado.");
+    if (lcdLigado) {
+      lcd.clear();
+      lcd.print("Sensor desligado.");
+    }
   }
 
-  // Comandos remotos do Firebase
-  if (lerComando("comando_ligar_luz")) {
+  // Comandos remotos
+  if (lerComando("comando_ligar_led1")) {
     ligarLed();
-    enviarEstado("comando_ligar_luz", false);
+    enviarEstado("comando_ligar_led1", false);
   }
-  if (lerComando("comando_desligar_luz")) {
+  if (lerComando("comando_desligar_led1")) {
     desligarLed();
-    enviarEstado("comando_desligar_luz", false);
+    enviarEstado("comando_desligar_led1", false);
   }
   if (lerComando("comando_ligar_lcd")) {
     ligarLCD();
@@ -137,7 +150,16 @@ void loop() {
     desligarLCD();
     enviarEstado("comando_desligar_lcd", false);
   }
+  if (lerComando("comando_ligar_led2")) {
+    ligarLed2();
+    enviarEstado("comando_ligar_led2", false);
+  }
+  if (lerComando("comando_desligar_led2")) {
+    desligarLed2();
+    enviarEstado("comando_desligar_led2", false);
+  }
 
+  // Comandos seriais
   if (Serial.available()) {
     String comando = Serial.readStringUntil('\n');
     comando.trim();
@@ -146,9 +168,9 @@ void loop() {
       ligarLCD();
     } else if (comando == "desligar tela") {
       desligarLCD();
-    } else if (comando == "ligar luz") {
+    } else if (comando == "ligar led1") {
       ligarLed();
-    } else if (comando == "desligar luz") {
+    } else if (comando == "desligar led1") {
       desligarLed();
     } else if (comando == "ligar tudo") {
       ligarLCD();
@@ -156,6 +178,10 @@ void loop() {
     } else if (comando == "desligar tudo") {
       desligarLCD();
       desligarLed();
+    } else if (comando == "ligar led2") {
+      ligarLed2();
+    } else if (comando == "desligar led2") {
+      desligarLed2();
     } else if (comando == "auto") {
       controleManual();
     } else {
@@ -166,19 +192,23 @@ void loop() {
   delay(500);
 }
 
+// Funções auxiliares
 void ligarLCD() {
-  digitalWrite(releLCD, LOW);
+  digitalWrite(releLCD, LOW);  // Alimenta VCC do LCD
   delay(500);
   lcd.begin(16, 2);
   lcdLigado = true;
+  lcd.print("LCD ligado");
   enviarEstado("lcd", true);
   Serial.println("LCD ligado.");
 }
 
 void desligarLCD() {
-  lcd.clear();
-  digitalWrite(releLCD, HIGH);
-  lcdLigado = false;
+  if (lcdLigado) {
+    lcd.clear();
+    lcdLigado = false;
+  }
+  digitalWrite(releLCD, HIGH);  // Corta alimentação do LCD
   enviarEstado("lcd", false);
   Serial.println("LCD desligado.");
 }
@@ -186,15 +216,27 @@ void desligarLCD() {
 void ligarLed() {
   digitalWrite(pinoLed, HIGH);
   controleManualLED = true;
-  enviarEstado("luz", true);
-  Serial.println("Luz ligada.");
+  enviarEstado("led1", true);
+  Serial.println("LED 1 ligado.");
 }
 
 void desligarLed() {
   digitalWrite(pinoLed, LOW);
   controleManualLED = true;
-  enviarEstado("luz", false);
-  Serial.println("Luz desligada.");
+  enviarEstado("led1", false);
+  Serial.println("LED 1 desligado.");
+}
+
+void ligarLed2() {
+  digitalWrite(ledSecundarioPin, HIGH);
+  enviarEstado("led2", true);
+  Serial.println("LED 2 ligado.");
+}
+
+void desligarLed2() {
+  digitalWrite(ledSecundarioPin, LOW);
+  enviarEstado("led2", false);
+  Serial.println("LED 2 desligado.");
 }
 
 void controleManual() {
@@ -202,7 +244,7 @@ void controleManual() {
   if (digitalRead(pinoLed) == HIGH) {
     delay(1000);
     digitalWrite(pinoLed, LOW);
-    enviarEstado("luz", false);
+    enviarEstado("led1", false);
   }
   Serial.print("Sensor ");
   Serial.println(controleManualLED ? "desligado" : "ligado");
